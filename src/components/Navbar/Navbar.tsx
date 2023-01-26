@@ -1,8 +1,12 @@
+import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
-
-const Navbar:React.FC = () => {
+type NavbarProps = {
     
-    return <div>Have a good coding</div>
+};
+
+const Navbar:React.FC<NavbarProps> = () => {
+    
+    return <Flex>Navbar</Flex>
 }
 export default Navbar;
