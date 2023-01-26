@@ -7,6 +7,13 @@ type NavbarProps = {
 
 const Navbar:React.FC<NavbarProps> = () => {
     
-    return <Flex>Navbar</Flex>
+    return (
+        <Flex bg="white" height="44px" padding="6px 12px">
+            <Flex>
+
+            </Flex>
+
+        </Flex>
+    )
 }
 export default Navbar;
