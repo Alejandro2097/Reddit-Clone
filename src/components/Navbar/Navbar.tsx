@@ -11,7 +11,10 @@ const Navbar:React.FC<NavbarProps> = () => {
         <Flex bg="white" height="44px" padding="6px 12px">
             <Flex align='center'>
                 <Image src="/images/redditFace.svg" alt="reddit image" height='30px' />
-                <Image src="/images/redditText.svg" alt="reddit text" height='46px'/>
+                <Image src="/images/redditText.svg"
+                       alt="reddit text" 
+                       height='46px' 
+                       display={{ base: 'none', md: "unset"}}/>
             </Flex>
 
         </Flex>
