@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { Flex, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
-import { PhoneIcon } from "@chakra-ui/icons"
+import { PhoneIcon, SearchIcon } from "@chakra-ui/icons"
 
 type SearchInputProps = {
   children?: ReactNode;
@@ -14,7 +14,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
-          children={<PhoneIcon color="gray.300" />}
+          children={<SearchIcon color="gray.300" />}
         />
         <Input type="tel" placeholder="Phone number" />
       </InputGroup>
