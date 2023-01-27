@@ -16,7 +16,9 @@ const Navbar:React.FC<NavbarProps> = () => {
                        height='46px' 
                        display={{ base: 'none', md: "unset"}}/>
             </Flex>
-
+            {/* <Directory/>
+            <SearchInput/>
+            <RightContent/> */}
         </Flex>
     )
 }
