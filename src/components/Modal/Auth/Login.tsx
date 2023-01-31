@@ -9,7 +9,7 @@ const Login:React.FC<LoginProps> = () => {
     const [LoginForm, setLoginForm] = useState({
         email: "",
         password: "",
-    })
+    });
     return (
         <form>
             <Input/>
