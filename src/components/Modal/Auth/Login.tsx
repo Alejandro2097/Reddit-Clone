@@ -30,7 +30,12 @@ const Login:React.FC<LoginProps> = () => {
                    placeholder="password"
                    type="password"
                    onChange={onChange}/>
-            <Button type='submit'>Log in</Button>
+            <Button type='submit'
+                    width='100%'
+                    height='36px'
+                    mt={2}
+                    mb={2}
+            >Log in</Button>
         </form>
     )
 }
