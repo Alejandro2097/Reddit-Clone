@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import { authModalState } from '../../../atoms/authModalAtom';
 import AuthInputs from './AuthInputs';
+import OAuthButton from './OAuthButton';
 
 type AuthModalProps = {
     
@@ -39,6 +40,7 @@ const AuthModal:React.FC<AuthModalProps> = () => {
                               justify='center'
                               width='70%'
                         >
+                            <OAuthButton/>
                             <AuthInputs/>
                         </Flex>
                     </ModalBody>
