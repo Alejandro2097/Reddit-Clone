@@ -1,4 +1,4 @@
-import { Input } from '@chakra-ui/react';
+import { Button, Input } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 type LoginProps = {
@@ -19,7 +19,9 @@ const Login:React.FC<LoginProps> = () => {
                    onChange={() => {}}/>
             <Input name="password"
                    placeholder="password"
-                   type="password"/>
+                   type="password"
+                   onChange={() => {}}/>
+            <Button type='submit'>Log in</Button>
         </form>
     )
 }
