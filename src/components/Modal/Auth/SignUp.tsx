@@ -1,14 +1,13 @@
 import { authModalState } from '@/src/atoms/authModalAtom';
-import { border, Button, Flex, Input, Text } from '@chakra-ui/react';
+import { Button, Flex, Input, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-type LoginProps = {
+type SignUpProps = {
     
 };
 
-const Login:React.FC<LoginProps> = () => {
-
+const SignUp:React.FC<SignUpProps> = () => {
     const setAuthModalState = useSetRecoilState(authModalState);
     const [LoginForm, setLoginForm] = useState({
         email: "",
@@ -87,4 +86,4 @@ const Login:React.FC<LoginProps> = () => {
         </form>
     )
 }
-export default Login;
+export default SignUp;
