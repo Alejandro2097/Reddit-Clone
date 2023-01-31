@@ -9,15 +9,16 @@ type SignUpProps = {
 
 const SignUp:React.FC<SignUpProps> = () => {
     const setAuthModalState = useSetRecoilState(authModalState);
-    const [LoginForm, setLoginForm] = useState({
+    const [SignUpForm, setSignUpForm] = useState({
         email: "",
         password: "",
+        confirmPassword: ""
     });
     // Firebase Login
     const onSubmit = () => {};
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // update from state
-        setLoginForm((prev: any) => ({
+        setSignUpForm((prev: any) => ({
             ...prev,
             [event.target.name]: event.target.value,
         }));
@@ -65,25 +66,46 @@ const SignUp:React.FC<SignUpProps> = () => {
                     }}
                     bg="gray.50"
                    onChange={onChange}/>
+            <Input name="confirmPassword"
+                   required
+                   placeholder="confirm password"
+                   type="password"
+                   mb={2}
+                   fontSize="10pt"
+                   _placeholder={{ color: "gray.500"}}
+                   _hover={{
+                        bg: 'white',
+                        border: '1px solid',
+                        borderColor: 'blue.500'
+                   }}
+                   _focus={{
+                        outline: 'none',
+                        bg: 'white',
+                        border: '1px solid',
+                        borderColor: 'blue.500'
+                    }}
+                    bg="gray.50"
+                   onChange={onChange}/>
             <Button type='submit'
                     width='100%'
                     height='36px'
                     mt={2}
                     mb={2}
-            >Log in</Button>
+            >Sign up</Button>
             <Flex fontSize='9pt' justifyContent="center"> 
-                    <Text mr={1}>New here?</Text>
+                    <Text mr={1}>Already a redditor?</Text>
                     <Text color="blue.500"
                           fontWeight={700}
                           cursor="pointer"
                           onClick={() => setAuthModalState(prev => ({
                             ...prev,
-                            view: "signup"
+                            view: "login"
                           }))}
                     >
-                        SIGN UP</Text>
+                        LOG IN </Text>
             </Flex>
         </form>
     )
 }
 export default SignUp;
+
