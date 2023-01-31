@@ -12,8 +12,14 @@ const Login:React.FC<LoginProps> = () => {
     });
     return (
         <form>
-            <Input/>
-            <Input/>
+            <Input name="email"
+                   placeholder="email"
+                   type="email"
+                   mb={2}
+                   onChange={() => {}}/>
+            <Input name="password"
+                   placeholder="password"
+                   type="password"/>
         </form>
     )
 }
