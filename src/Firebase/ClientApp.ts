@@ -6,12 +6,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAXY8OZXNDsUc5A86tShnS9xdmIqHMZ0Ok",
-  authDomain: "reddit-clone-tutorial-7d8ce.firebaseapp.com",
-  projectId: "reddit-clone-tutorial-7d8ce",
-  storageBucket: "reddit-clone-tutorial-7d8ce.appspot.com",
-  messagingSenderId: "460392285868",
-  appId: "1:460392285868:web:5426bf7b348a3a628e8109"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
