@@ -25,11 +25,14 @@ const SignUp:React.FC<SignUpProps> = () => {
         userError,
       ] = useCreateUserWithEmailAndPassword(auth);
     // Firebase Login
-    const onSubmit = () => {
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if(error) setError('');
         if(SignUpForm.password !== SignUpForm.confirmPassword){
             setError("Passwords do not match");
             return;
         }
+        // Passwords Match
         createUserWithEmailAndPassword(SignUpForm.email, SignUpForm.password);
     };
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
