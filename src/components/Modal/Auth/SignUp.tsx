@@ -106,9 +106,9 @@ const SignUp:React.FC<SignUpProps> = () => {
                     }}
                     bg="gray.50"
                    onChange={onChange}/>
-                   {error || userError &&(
+                   {(error || userError) &&(
                         <Text textAlign='center' color="red" fontSize="10pt">
-                            {error ||  FIREBASE_ERRORS[userError.message  as keyof typeof FIREBASE_ERRORS]}</Text>
+                            {error ||  FIREBASE_ERRORS[userError?.message  as keyof typeof FIREBASE_ERRORS]}</Text>
                    )}
             <Button type='submit'
                     width='100%'
