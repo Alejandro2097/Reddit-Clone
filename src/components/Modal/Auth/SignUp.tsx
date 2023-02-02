@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
 
+import { auth } from '../../../Firebase/ClientApp';
+
 type SignUpProps = {
     
 };
@@ -15,14 +17,21 @@ const SignUp:React.FC<SignUpProps> = () => {
         password: "",
         confirmPassword: ""
     });
+    const [error, setError] = useState("");
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
-        error,
+        userError,
       ] = useCreateUserWithEmailAndPassword(auth);
     // Firebase Login
-    const onSubmit = () => {};
+    const onSubmit = () => {
+        if(SignUpForm.password !== SignUpForm.confirmPassword){
+            setError("Passwords do not match");
+            return;
+        }
+        createUserWithEmailAndPassword(SignUpForm.email, SignUpForm.password);
+    };
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // update from state
         setSignUpForm((prev: any) => ({
@@ -93,6 +102,7 @@ const SignUp:React.FC<SignUpProps> = () => {
                     }}
                     bg="gray.50"
                    onChange={onChange}/>
+            <Text textAlign='center' color="red" fontSize="10pt">{error}</Text>
             <Button type='submit'
                     width='100%'
                     height='36px'
