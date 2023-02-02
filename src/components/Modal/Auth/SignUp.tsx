@@ -5,6 +5,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
 
 import { auth } from '../../../Firebase/ClientApp';
+import { FIREBASE_ERRORS } from '../../../Firebase/errors';
 
 type SignUpProps = {
     
@@ -106,7 +107,8 @@ const SignUp:React.FC<SignUpProps> = () => {
                     bg="gray.50"
                    onChange={onChange}/>
                    {error || userError &&(
-                        <Text textAlign='center' color="red" fontSize="10pt">{error || userError.message}</Text>
+                        <Text textAlign='center' color="red" fontSize="10pt">
+                            {error ||  FIREBASE_ERRORS[userError.message  as keyof typeof FIREBASE_ERRORS]}</Text>
                    )}
             <Button type='submit'
                     width='100%'
