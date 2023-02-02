@@ -105,7 +105,9 @@ const SignUp:React.FC<SignUpProps> = () => {
                     }}
                     bg="gray.50"
                    onChange={onChange}/>
-            <Text textAlign='center' color="red" fontSize="10pt">{error}</Text>
+                   {error || userError &&(
+                        <Text textAlign='center' color="red" fontSize="10pt">{error || userError.message}</Text>
+                   )}
             <Button type='submit'
                     width='100%'
                     height='36px'
