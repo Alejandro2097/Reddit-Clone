@@ -1,6 +1,6 @@
 import { Button, Flex, Image } from '@chakra-ui/react';
 import React from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 type OAuthButtonProps = {
     
