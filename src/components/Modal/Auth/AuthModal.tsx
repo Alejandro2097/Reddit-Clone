@@ -7,6 +7,7 @@ import { authModalState } from '../../../atoms/authModalAtom';
 import { auth } from "../../../Firebase/ClientApp";
 import AuthInputs from './AuthInputs';
 import OAuthButton from './OAuthButton';
+import ResetPassword from './ResetPassword';
 
 type AuthModalProps = {
     
@@ -57,11 +58,6 @@ const AuthModal:React.FC<AuthModalProps> = () => {
                                 </>
                                 
                             ) : <ResetPassword/> }
-                            <OAuthButton/>
-                            <Text color="gray.500" fontWeight={700}>
-                                OR
-                            </Text>
-                            <AuthInputs/>
                         </Flex>
                     </ModalBody>
                 </ModalContent>

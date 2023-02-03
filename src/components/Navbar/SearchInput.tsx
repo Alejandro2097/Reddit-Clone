@@ -16,7 +16,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
           pointerEvents="none"
           children={<SearchIcon color="gray.400" mb={1} />}
         />
-        <Input  placeholder="Phone number" 
+        <Input  placeholder="Search Reddit" 
                 fontSize='10pt' 
                 _placeholder={{ color: "gray.500"}}
                 _hover={{
