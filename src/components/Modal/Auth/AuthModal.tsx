@@ -46,7 +46,17 @@ const AuthModal:React.FC<AuthModalProps> = () => {
                               align='center'
                               justify='center'
                               width='70%'
-                        >
+                        >   
+                            {modalState.view === 'login' || modalState.view === 'signup' ? (
+                                <>
+                                    <OAuthButton/>
+                                    <Text color="gray.500" fontWeight={700}>
+                                        OR
+                                    </Text>
+                                    <AuthInputs/>
+                                </>
+                                
+                            ) : <ResetPassword/> }
                             <OAuthButton/>
                             <Text color="gray.500" fontWeight={700}>
                                 OR
