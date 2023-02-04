@@ -1,18 +1,30 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import React from 'react';
+import { Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { User } from 'firebase/auth';
+import React from 'react';
+import { FaRedditSquare } from "react-icons/fa";
 
 type UserMenuProps = {
     user?: User | null;
 };
 
-const UserMenu:React.FC<UserMenuProps> = () => {
+const UserMenu:React.FC<UserMenuProps> = ({user}) => {
     
     return (
         <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                Actions
+            <MenuButton cursor='pointer' padding='0px 6px'
+                        borderRadius={4}
+                        _hover={{outline: '1px solid' , outlineColor: 'gray.200'}}>
+                {user ? (
+                    <Flex>
+                        <Flex>
+                            <>
+                                <Icon fontSize={24} mr={1} color='gray.300' as={FaRedditSquare}></Icon>
+                            </>
+                            <ChevronDownIcon/>
+                        </Flex>
+                    </Flex>
+                ) : <div>no user</div>}
             </MenuButton>
             <MenuList>
                 <MenuItem>Download</MenuItem>
