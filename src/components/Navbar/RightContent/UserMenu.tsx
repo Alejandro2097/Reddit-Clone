@@ -5,6 +5,7 @@ import React from 'react';
 import { CgProfile } from "react-icons/cg";
 import { FaRedditSquare } from "react-icons/fa";
 import { IoSparkles } from "react-icons/io5";
+import { MdOutlineLogin } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
 
 type UserMenuProps = {
@@ -32,10 +33,20 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                 }
             </MenuButton>
             <MenuList>
-                <MenuItem fontSize="10pt">
+                <MenuItem fontSize="10pt"
+                          fontWeight={700}
+                          _hover={{bg: 'blue.500', color: 'white'}}>
                     <Flex align="center">
                         <Icon as={CgProfile} fontSize={20} mr={2}/>
                         Profile
+                    </Flex>
+                </MenuItem>
+                <MenuItem fontSize="10pt"
+                          fontWeight={700}
+                          _hover={{bg: 'blue.500', color: 'white'}}>
+                    <Flex align="center">
+                        <Icon as={MdOutlineLogin} fontSize={20} mr={2}/>
+                        Log Out
                     </Flex>
                 </MenuItem>
             </MenuList>
