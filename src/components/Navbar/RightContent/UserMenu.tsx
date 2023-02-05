@@ -1,3 +1,4 @@
+import { authModalState } from '@/src/atoms/authModalAtom';
 import { auth } from '@/src/Firebase/ClientApp';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Button, Flex, Icon, Menu, MenuButton, MenuDivider, MenuItem, MenuList } from '@chakra-ui/react';
@@ -8,13 +9,14 @@ import { FaRedditSquare } from "react-icons/fa";
 import { IoSparkles } from "react-icons/io5";
 import { MdOutlineLogin } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
+import { useSetRecoilState } from 'recoil';
 
 type UserMenuProps = {
     user?: User | null;
 };
 
 const UserMenu:React.FC<UserMenuProps> = ({user}) => {
-    
+    const setAuthModalState = useSetRecoilState(authModalState);
     return (
         <Menu>
             <MenuButton cursor='pointer' padding='0px 6px'
@@ -36,24 +38,40 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                     </Flex>
             </MenuButton>
             <MenuList>
-                <MenuItem fontSize="10pt"
-                          fontWeight={700}
-                          _hover={{bg: 'blue.500', color: 'white'}}>
-                    <Flex align="center">
-                        <Icon as={CgProfile} fontSize={20} mr={2}/>
-                        Profile
-                    </Flex>
-                </MenuItem>
-                <MenuDivider/>
-                <MenuItem fontSize="10pt"
-                          fontWeight={700}
-                          _hover={{bg: 'blue.500', color: 'white'}}
-                          onClick={() => signOut(auth)}>
-                    <Flex align="center">
-                        <Icon as={MdOutlineLogin} fontSize={20} mr={2}/>
-                        Log Out
-                    </Flex>
-                </MenuItem>
+                {user ? (
+                    <>
+                    <MenuItem fontSize="10pt"
+                            fontWeight={700}
+                            _hover={{bg: 'blue.500', color: 'white'}}>
+                        <Flex align="center">
+                            <Icon as={CgProfile} fontSize={20} mr={2}/>
+                            Profile
+                        </Flex>
+                    </MenuItem>
+                    <MenuDivider/>
+                    <MenuItem fontSize="10pt"
+                            fontWeight={700}
+                            _hover={{bg: 'blue.500', color: 'white'}}
+                            onClick={() => signOut(auth)}>
+                        <Flex align="center">
+                            <Icon as={MdOutlineLogin} fontSize={20} mr={2}/>
+                            Log Out
+                        </Flex>
+                    </MenuItem>
+                    </>
+                ) : (
+                    <>
+                        <MenuItem fontSize="10pt"
+                                fontWeight={700}
+                                _hover={{bg: 'blue.500', color: 'white'}}
+                                onClick={() => setAuthModalState({open: true, view: "login"})}>
+                            <Flex align="center">
+                                <Icon as={MdOutlineLogin} fontSize={20} mr={2}/>
+                                Log in / Sign Up
+                            </Flex>
+                        </MenuItem>
+                    </>
+                )}
             </MenuList>
         </Menu>
     )
