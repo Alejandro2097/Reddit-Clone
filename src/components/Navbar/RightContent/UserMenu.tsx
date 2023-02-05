@@ -2,7 +2,9 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { User } from 'firebase/auth';
 import React from 'react';
-import { FaRedditSquare,  } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { FaRedditSquare } from "react-icons/fa";
+import { IoSparkles } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 
 type UserMenuProps = {
@@ -30,11 +32,12 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                 }
             </MenuButton>
             <MenuList>
-                <MenuItem>Download</MenuItem>
-                <MenuItem>Create a Copy</MenuItem>
-                <MenuItem>Mark as Draft</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Attend a Workshop</MenuItem>
+                <MenuItem fontSize="10pt">
+                    <Flex align="center">
+                        <Icon as={CgProfile} fontSize={20} mr={2}/>
+                        Profile
+                    </Flex>
+                </MenuItem>
             </MenuList>
         </Menu>
     )
