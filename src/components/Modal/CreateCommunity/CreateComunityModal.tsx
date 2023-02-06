@@ -1,4 +1,4 @@
-import { Box, Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 type CreateComunityModalProps = {
@@ -11,12 +11,17 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
     handleClose}) => {
         const [communityName, setCommunityName] = useState('');
         const [charsRemaining, setCharsRemaining] = useState(21);
+        const [communityType, setCommunityType] = useState("public");
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           if(event.target.value.length > 21) return 
           setCommunityName(event.target.value);
           // Recalculate how many chars we have left in name
           setCharsRemaining(21 - event.target.value.length);
+        }
+
+        const onCommunityTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+          setCommunityType(event.target.name)
         }
         return (
             <>
@@ -52,7 +57,35 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                              pl="22px"
                              onChange={handleChange}
                              />
-                      <Text>{charsRemaining} Characters remaining</Text>
+                      <Text fontSize="9pt" 
+                            color={charsRemaining === 0 ? "red" : "gray.500"}>
+                        {charsRemaining} Characters remaining
+                      </Text>
+                      <Box mt={4} mb={4}>
+                        <Text fontWeight={600}
+                              fontSize={15}>
+
+                        </Text>
+                        {/* chackbox */}
+                        <Stack spacing={2}>
+                          <Checkbox name="public" 
+                                    isChecked={communityType === 'public'}
+                                    onChange={onCommunityTypeChange}
+                                    >
+                            Public
+                          </Checkbox>
+                          <Checkbox name="restricted"
+                                    isChecked={communityType === 'restricted'}
+                                    onChange={onCommunityTypeChange}>
+                            Restricted
+                          </Checkbox>
+                          <Checkbox name="private" 
+                                    isChecked={communityType === 'private'}
+                                    onChange={onCommunityTypeChange}>
+                            Private
+                          </Checkbox>
+                        </Stack>
+                      </Box>
                     </ModalBody>
                   </Box>
                 
