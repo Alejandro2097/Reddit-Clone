@@ -9,7 +9,15 @@ type CreateComunityModalProps = {
 const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
     open,
     handleClose}) => {
-        const [communityName, setCommunityName] = useState('')
+        const [communityName, setCommunityName] = useState('');
+        const [charsRemaining, setCharsRemaining] = useState(21);
+
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+          if(event.target.value.length > 21) return 
+          setCommunityName(event.target.value);
+          // Recalculate how many chars we have left in name
+          setCharsRemaining(21 - event.target.value.length);
+        }
         return (
             <>
         
@@ -25,8 +33,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                     <ModalCloseButton />
                     <ModalBody display='flex'
                                flexDirection='column'
-                               padding="10px 0px"
-                               border="1px solid red">
+                               padding="10px 0px">
                       <Text fontWeight={600} fontSize={15}>
                         Name
                       </Text>
@@ -37,13 +44,15 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                             top="28px"
                             left='10px'
                             width="20px"
+                            color="gray.400"
                             >r/</Text>
                       <Input position="relative"
                              value={communityName}
                              size='sm'
                              pl="22px"
-                             onChange={() => {}}
+                             onChange={handleChange}
                              />
+                      <Text>{charsRemaining} Characters remaining</Text>
                     </ModalBody>
                   </Box>
                 
