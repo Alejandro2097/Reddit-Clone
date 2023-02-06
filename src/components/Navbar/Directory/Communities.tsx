@@ -14,7 +14,7 @@ const Communities:React.FC<CommunitiesProps> = () => {
     const [open, setOpen] = useState(false);
     return (
         <>
-            <CreateComunityModal/>
+            <CreateComunityModal open={open} handleClose={() => setOpen(false)}/>
             <MenuItem width="100%" 
                       fontSize="10pt"
                       _hover={{ bg: "gray.100"}}
