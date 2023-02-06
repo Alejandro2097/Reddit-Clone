@@ -6,6 +6,8 @@ import { signOut, User } from 'firebase/auth';
 import React from 'react';
 import { TiHome } from "react-icons/ti";
 
+import Communities from './Communities';
+
 type UserMenuProps = {
     user?: User | null;
 };
@@ -34,7 +36,7 @@ const UserMenu:React.FC<UserMenuProps> = () => {
                     </Flex>
             </MenuButton>
             <MenuList>
-                
+                <Communities/>
             </MenuList>
         </Menu>
     )
