@@ -1,5 +1,7 @@
-import { Box, Button, Checkbox, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Flex, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { BsFillEyeFill, BsFillPersonFill } from 'react-icons/bs';
+import { HiLockClosed } from 'react-icons/hi';
 
 type CreateComunityModalProps = {
     open: boolean;
@@ -26,7 +28,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
         return (
             <>
         
-              <Modal isOpen={open} onClose={handleClose}>
+              <Modal isOpen={open} onClose={handleClose} size="lg">
                 <ModalOverlay />
                 <ModalContent>
                   <ModalHeader display="flex" 
@@ -64,7 +66,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                       <Box mt={4} mb={4}>
                         <Text fontWeight={600}
                               fontSize={15}>
-
+                              Community Type
                         </Text>
                         {/* chackbox */}
                         <Stack spacing={2}>
@@ -72,17 +74,41 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                                     isChecked={communityType === 'public'}
                                     onChange={onCommunityTypeChange}
                                     >
-                            Public
+                            <Flex align='center'>
+                              <Icon as={BsFillPersonFill} color='gray.500' mr={2}/>
+                              <Text fontSize="10pt" mr={1}>
+                                Public
+                              </Text>
+                              <Text fontSize='8pt' color='gray.500' pt={1}>
+                                Anyone can view, post, and comment to this community
+                              </Text>
+                            </Flex>
                           </Checkbox>
                           <Checkbox name="restricted"
                                     isChecked={communityType === 'restricted'}
                                     onChange={onCommunityTypeChange}>
-                            Restricted
+                            <Flex align='center'>
+                              <Icon as={BsFillEyeFill} color='gray.500' mr={2}/>
+                              <Text fontSize="10pt" mr={1}>
+                                Restricted
+                              </Text>
+                              <Text fontSize='8pt' color='gray.500' pt={1}>
+                                Anyone can view this community, but only approved user can post
+                              </Text>
+                            </Flex>
                           </Checkbox>
                           <Checkbox name="private" 
                                     isChecked={communityType === 'private'}
                                     onChange={onCommunityTypeChange}>
-                            Private
+                            <Flex align='center'>
+                            <Icon as={HiLockClosed} color='gray.500' mr={2}/>
+                              <Text fontSize="10pt" mr={1}>
+                                Private
+                              </Text>
+                              <Text fontSize='8pt' color='gray.500' pt={1}>
+                                Only approved users can view and submit to this community
+                              </Text>
+                            </Flex>
                           </Checkbox>
                         </Stack>
                       </Box>
