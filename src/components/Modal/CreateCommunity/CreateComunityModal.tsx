@@ -33,12 +33,14 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
         }
 
         const handleCreateCommunity = async () => {
+          if(error) setError("");
           // validate community name
           const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
           if(format.test(communityName) || communityName.length < 3) {
-            setError('Community names must be between 3-21 characters, and can only contain letters, numbers or underscores.')
+            setError('Community names must be between 3-21 characters, and can only contain letters, numbers or underscores.');
+            return;
           };
-          return;
+          
 
           setLoading(true);
 
@@ -47,11 +49,13 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
               // Check the name is not taken 
               // if valid name create community
             const communityDocRef = doc(fireStore, 'communities', communityName);
+
+            // Chacks if community exist in DB
             const communityDoc = await getDoc(communityDocRef);
 
             if(communityDoc.exists() ) {
-              setError(`Sorry, r/${communityName} is already taken. Try another.`);
-              return;
+              throw new Error(`Sorry, r/${communityName} is already taken. Try another.`);
+              
             }
 
             // Create community
@@ -182,10 +186,10 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                   </Box>
                 
                   <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={handleClose}>
+                    <Button variant="outline" height="30px" mr={2} onClick={handleClose}>
                       Close
                     </Button>
-                    <Button variant='ghost'>Create Community</Button>
+                    <Button variant="solid"  height="30px"  isLoading={loading} onClick={handleCreateCommunity}>Create Community</Button>
                   </ModalFooter>
                 </ModalContent>
               </Modal>
