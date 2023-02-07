@@ -19,6 +19,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
         const [charsRemaining, setCharsRemaining] = useState(21);
         const [communityType, setCommunityType] = useState("public");
         const [error, setError] = useState('');
+        const [loading, setLoading] = useState(false);
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           if(event.target.value.length > 21) return 
@@ -38,6 +39,8 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
             setError('Community names must be between 3-21 characters, and can only contain letters, numbers or underscores.')
           };
           return;
+
+          setLoading(true);
           // create the community document  in firestore
             // Check the name is not taken 
             // if valid name create community
@@ -57,6 +60,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
             numberOfMembers: 1,
             privacyType: communityType,
           });
+          setLoading(false);
         }
         return (
             <>
