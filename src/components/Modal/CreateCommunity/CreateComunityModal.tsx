@@ -29,6 +29,10 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
 
         const handleCreateCommunity = async () => {
           // validate community name
+          const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
+          if(format.test(communityName) || communityName.length < 3) {
+            setError('Community names must be between 3-21 characters')
+          }
           // create the community document  in firestore
         }
         return (
@@ -68,6 +72,9 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
                       <Text fontSize="9pt" 
                             color={charsRemaining === 0 ? "red" : "gray.500"}>
                         {charsRemaining} Characters remaining
+                      </Text>
+                      <Text fontSize='9pt' color="red" pt={1}>
+                        {error}
                       </Text>
                       <Box mt={4} mb={4}>
                         <Text fontWeight={600}
