@@ -1,4 +1,6 @@
+import { fireStore } from '@/src/Firebase/ClientApp';
 import { Box, Button, Checkbox, Flex, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
+import { doc, getDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { BsFillEyeFill, BsFillPersonFill } from 'react-icons/bs';
 import { HiLockClosed } from 'react-icons/hi';
@@ -31,9 +33,18 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
           // validate community name
           const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
           if(format.test(communityName) || communityName.length < 3) {
-            setError('Community names must be between 3-21 characters')
-          }
+            setError('Community names must be between 3-21 characters, and can only contain letters, numbers or underscores.')
+          };
+          return;
           // create the community document  in firestore
+            // Check the name is not taken 
+            // if valid name create community
+          const communityDocRef = doc(fireStore, 'communities', communityName);
+          const communityDoc = await getDoc(communityDocRef);
+
+          if(communityDoc.exists() ) {
+            setError(`Sorry, r/${communityName} is already taken. Try another.`);
+          }
         }
         return (
             <>
