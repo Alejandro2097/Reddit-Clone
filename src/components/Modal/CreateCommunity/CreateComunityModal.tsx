@@ -25,6 +25,10 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
         const onCommunityTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           setCommunityType(event.target.name)
         }
+
+        const handleCreateCommunity = async () => {
+          // validate community name
+        }
         return (
             <>
         
