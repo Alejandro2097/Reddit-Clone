@@ -1,7 +1,8 @@
-import { fireStore } from '@/src/Firebase/ClientApp';
+import { fireStore, auth } from '@/src/Firebase/ClientApp';
 import { Box, Button, Checkbox, Flex, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { BsFillEyeFill, BsFillPersonFill } from 'react-icons/bs';
 import { HiLockClosed } from 'react-icons/hi';
 
@@ -13,6 +14,7 @@ type CreateComunityModalProps = {
 const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
     open,
     handleClose}) => {
+        const [user] = useAuthState(auth); 
         const [communityName, setCommunityName] = useState('');
         const [charsRemaining, setCharsRemaining] = useState(21);
         const [communityType, setCommunityType] = useState("public");
@@ -44,7 +46,16 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
 
           if(communityDoc.exists() ) {
             setError(`Sorry, r/${communityName} is already taken. Try another.`);
+            return;
           }
+
+          // Create community
+          await setDoc(communityDocRef {
+            // Creator Id
+            // createdAt
+            // numberOfMembers
+            // Privacy types
+          })
         }
         return (
             <>
