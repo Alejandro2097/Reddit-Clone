@@ -14,6 +14,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
         const [communityName, setCommunityName] = useState('');
         const [charsRemaining, setCharsRemaining] = useState(21);
         const [communityType, setCommunityType] = useState("public");
+        const [error, setError] = useState('');
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           if(event.target.value.length > 21) return 
@@ -28,6 +29,7 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
 
         const handleCreateCommunity = async () => {
           // validate community name
+          // create the community document  in firestore
         }
         return (
             <>
