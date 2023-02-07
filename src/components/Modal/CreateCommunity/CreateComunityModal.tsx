@@ -1,6 +1,6 @@
-import { fireStore, auth } from '@/src/Firebase/ClientApp';
+import { auth, fireStore } from '@/src/Firebase/ClientApp';
 import { Box, Button, Checkbox, Flex, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { BsFillEyeFill, BsFillPersonFill } from 'react-icons/bs';
@@ -50,12 +50,13 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
           }
 
           // Create community
-          await setDoc(communityDocRef {
+          await setDoc(communityDocRef, {
             // Creator Id
-            // createdAt
-            // numberOfMembers
-            // Privacy types
-          })
+            creatorId: user?.uid,
+            createdAt: serverTimestamp(),
+            numberOfMembers: 1,
+            privacyType: communityType,
+          });
         }
         return (
             <>
