@@ -41,6 +41,32 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
           return;
 
           setLoading(true);
+
+          try {
+              // create the community document  in firestore
+              // Check the name is not taken 
+              // if valid name create community
+            const communityDocRef = doc(fireStore, 'communities', communityName);
+            const communityDoc = await getDoc(communityDocRef);
+
+            if(communityDoc.exists() ) {
+              setError(`Sorry, r/${communityName} is already taken. Try another.`);
+              return;
+            }
+
+            // Create community
+            await setDoc(communityDocRef, {
+              // Creator Id
+              creatorId: user?.uid,
+              createdAt: serverTimestamp(),
+              numberOfMembers: 1,
+              privacyType: communityType,
+            });
+            setLoading(false);
+          } catch(error: any) {
+            console.log('handleCreateCommunityError', error);
+            setError(error.message)
+          }
           // create the community document  in firestore
             // Check the name is not taken 
             // if valid name create community
