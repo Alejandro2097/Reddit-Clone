@@ -1,6 +1,6 @@
 import { auth, fireStore } from '@/src/Firebase/ClientApp';
 import { Box, Button, Checkbox, Flex, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from '@chakra-ui/react';
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, getDoc, runTransaction, serverTimestamp, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { BsFillEyeFill, BsFillPersonFill } from 'react-icons/bs';
@@ -50,22 +50,30 @@ const CreateComunityModal:React.FC<CreateComunityModalProps> = ({
               // if valid name create community
             const communityDocRef = doc(fireStore, 'communities', communityName);
 
-            // Chacks if community exist in DB
-            const communityDoc = await getDoc(communityDocRef);
+            await runTransaction(fireStore, async (transaction) => {
+              const communityDoc = await transaction.get(communityDocRef);
 
-            if(communityDoc.exists() ) {
-              throw new Error(`Sorry, r/${communityName} is already taken. Try another.`);
-              
-            }
+              if(communityDoc.exists() ) {
+                throw new Error(`Sorry, r/${communityName} is already taken. Try another.`); 
+              }
+              // Create community
+              await transaction.set(communityDocRef, {
+                // Creator Id
+                creatorId: user?.uid,
+                createdAt: serverTimestamp(),
+                numberOfMembers: 1,
+                privacyType: communityType,
+              });
 
-            // Create community
-            await setDoc(communityDocRef, {
-              // Creator Id
-              creatorId: user?.uid,
-              createdAt: serverTimestamp(),
-              numberOfMembers: 1,
-              privacyType: communityType,
-            });
+              // Create a communitySnipett on user
+              transaction.set(doc(fireStore, `users/${user?.uid}/communitySnippets`, communityName), {
+                communityId: communityName,
+                isModerator: true,
+              })
+            })
+
+            
+            
             setLoading(false);
           } catch(error: any) {
             console.log('handleCreateCommunityError', error);
