@@ -1,11 +1,11 @@
 import React from 'react';
 
-type indexProps = {
+type CommunityPageProps = {
     
 };
 
-const index:React.FC<indexProps> = () => {
+const CommunityPage:React.FC<CommunityPageProps> = () => {
     
-    return <div>Have a good coding</div>
+    return <div>Community Page</div>
 }
-export default index;
+export default CommunityPage;
