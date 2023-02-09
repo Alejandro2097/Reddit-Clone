@@ -10,13 +10,13 @@ type CommunityPageProps = {
 };
 
 const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
-    
+    console.log('here is data', communityData)
     return <div>Welcome to {communityData.id}</div>
    
 }
 
 
-async function getServerSideProps(context: GetServerSidePropsContext){
+export async function getServerSideProps(context: GetServerSidePropsContext){
     // get community data and pass it to client 
 
     try {
