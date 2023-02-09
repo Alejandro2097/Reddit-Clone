@@ -1,15 +1,17 @@
+import { Community } from '@/src/atoms/communityAtoms';
 import { fireStore } from '@/src/Firebase/ClientApp';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';
+import safeJsonStringify from 'safe-json-stringify';
 
 type CommunityPageProps = {
-    
+    communityData: Community;
 };
 
-const CommunityPage:React.FC<CommunityPageProps> = () => {
+const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
     
-    return <div>Community Page</div>
+    return <div>Welcome to {communityData.id}</div>
    
 }
 
@@ -26,11 +28,13 @@ async function getServerSideProps(context: GetServerSidePropsContext){
 
         return  {
             props: {
-                communityData: communityDoc.data(), 
+                communityData: JSON.parse(safeJsonStringify({id: communityDoc.id, ...communityDoc.data()})), 
             }
 
         }
     } catch (error) {
+
+        // Culd add error page here
         console.log('getServersideProps error',  error);
     }
 }    
