@@ -1,4 +1,5 @@
 import { Community } from '@/src/atoms/communityAtoms';
+import Header from '@/src/components/community/Header';
 import CommunityNotFound from '@/src/components/community/NotFound';
 import { fireStore } from '@/src/Firebase/ClientApp';
 import { doc, getDoc } from 'firebase/firestore';
@@ -16,7 +17,11 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
     if(!communityData){
         return <CommunityNotFound/>
     }
-    return <div>Welcome to {communityData.id}</div>
+    return (
+        <>
+            <Header communityData={communityData}/>
+        </>
+    )
    
 }
 
