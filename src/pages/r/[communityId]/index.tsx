@@ -10,7 +10,11 @@ type CommunityPageProps = {
 };
 
 const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
-    console.log('here is data', communityData)
+    console.log('here is data', communityData);
+
+    if(!communityData){
+        return <div>Community does not exist</div>
+    }
     return <div>Welcome to {communityData.id}</div>
    
 }
