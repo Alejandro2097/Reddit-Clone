@@ -1,4 +1,5 @@
 import { Community } from '@/src/atoms/communityAtoms';
+import CommunityNotFound from '@/src/components/community/NotFound';
 import { fireStore } from '@/src/Firebase/ClientApp';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSidePropsContext } from 'next';
@@ -13,7 +14,7 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
     console.log('here is data', communityData);
 
     if(!communityData){
-        return <div>Community does not exist</div>
+        return <CommunityNotFound/>
     }
     return <div>Welcome to {communityData.id}</div>
    
