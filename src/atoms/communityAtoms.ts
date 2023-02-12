@@ -20,3 +20,11 @@ interface CommunityState {
     mySnippets: CommunitySnippet[];
     // viisited communities
 }
+
+const defaultCommunityState: CommunityState = {
+    mySnippets: []
+}
+export const communityState =  atom<CommunityState>({
+    key: 'communityState',
+    default: defaultCommunityState,
+});
