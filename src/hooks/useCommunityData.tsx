@@ -35,8 +35,9 @@ const useCommunityData = () => {
                 mySnippets: snippets as CommunitySnippet[]
             }))
             console.log("here are snippets", snippets);
-        } catch (error) {
+        } catch (error: any) {
             console.log('getMySnippetError', error);
+            setError(error.message);
         }
         setLoading(false);
     }
@@ -47,7 +48,12 @@ const useCommunityData = () => {
             // create a new community snippet
 
             // updating the numberOfMembers
-        
+            try {
+                
+            } catch (error: any) {
+                console.log('joinCommunity error', error);
+                setError(error.message);
+            }
         // update recoil state - communityState.mySnippets
     };
 
