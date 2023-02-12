@@ -3,12 +3,14 @@ import React from 'react';
 import { FaReddit } from 'react-icons/fa';
 
 import { Community } from '../../atoms/communityAtoms';
+import useCommunityData from '../../hooks/useCommunityData';
 
 type HeaderProps = {
     communityData: Community;
 };
 
 const Header:React.FC<HeaderProps> = ({communityData}) => {
+    const { communityStateValue  } = useCommunityData();
     const isJoined = false; // read from  our community snippets
     return (
         <Flex direction='column' width='100%' height='146px'>
