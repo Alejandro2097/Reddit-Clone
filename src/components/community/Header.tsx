@@ -10,7 +10,7 @@ type HeaderProps = {
 };
 
 const Header:React.FC<HeaderProps> = ({communityData}) => {
-    const { communityStateValue  } = useCommunityData();
+    const { communityStateValue, onJoinOrLeaveCommunity  } = useCommunityData();
     const isJoined = false; // read from  our community snippets
     return (
         <Flex direction='column' width='100%' height='146px'>
@@ -45,7 +45,7 @@ const Header:React.FC<HeaderProps> = ({communityData}) => {
                                 height="30px" 
                                 pr={6} 
                                 pl={6}
-                                onClick={() => {}}
+                                onClick={() =>  onJoinOrLeaveCommunity(communityData, isJoined)}
                         >
                             {isJoined ? 'Joined' : 'Join'}
                         </Button>

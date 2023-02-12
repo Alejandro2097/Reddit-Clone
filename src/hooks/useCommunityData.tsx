@@ -1,20 +1,29 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
-import { communityState } from '../atoms/communityAtoms';
+import { Community, communityState } from '../atoms/communityAtoms';
 
 const useCommunityData = () => {
 
     const [communityStateValue, setCommunityStateValue] = useRecoilState(communityState);
+
+    const onJoinOrLeaveCommunity = (communityData: Community, isJoined: boolean) => {
+        // is the user sign in
+        //if not => open auth modal
+
+        if(isJoined) {
+            leaveCommunity(communityData.id);
+        }
+        joinCommunity(communityData)
+    }
     
-    const joinCommunity = () => {}
-    const leaveCommunity = () => {}
+    const joinCommunity = (communityData: Community) => {}
+    const leaveCommunity = (communityid: string) => {}
 
     return {
         // data and functions
         communityStateValue,
-        joinCommunity,
-        leaveCommunity
+        onJoinOrLeaveCommunity
     }
 }
 export default useCommunityData;
