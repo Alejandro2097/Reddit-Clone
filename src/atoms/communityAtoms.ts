@@ -9,3 +9,14 @@ export interface Community {
     createdAt?: Timestamp;
     imageURL?: string;
 }
+
+interface CommunitySnippet {
+    communityId: string;
+    isModerator?: boolean;
+    imageUrl?: string;
+}
+
+interface CommunityState {
+    mySnippets: CommunitySnippet[];
+    // viisited communities
+}
