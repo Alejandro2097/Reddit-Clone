@@ -79,14 +79,28 @@ const useCommunityData = () => {
     };
 
 
-    const leaveCommunity = (communityid: string) => {
+    const leaveCommunity = async (communityid: string) => {
         //Batch write
             // delete a new community snippet
 
             // deleting the numberOfMembers
         try {
             const batch =  writeBatch(fireStore);
-            batch.delete(doc(fireStore, `users/${user?.uid}/communitySnippets`))
+            batch.delete(
+                doc(
+                    fireStore, `users/${user?.uid}/communitySnippets`
+                )
+            );
+            batch.update(doc(fireStore, 'communities', communityid), {
+                numberOfMembers: increment(-1),
+            }); 
+            await batch.commit();
+            setCommunityStateValue(prev => ({
+                ...prev,
+                mySnippets: prev.mySnippets.filter(
+                    item => item.communityId !== communityid
+                ),
+            }));
         } catch (error: any) {
             console.log('Leave community error', error.message)
         }
