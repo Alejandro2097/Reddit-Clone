@@ -9,18 +9,22 @@ import { FaRedditSquare } from "react-icons/fa";
 import { IoSparkles } from "react-icons/io5";
 import { MdOutlineLogin } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+
+import { communityState } from '../../../atoms/communityAtoms';
 
 type UserMenuProps = {
     user?: User | null;
 };
 
 const UserMenu:React.FC<UserMenuProps> = ({user}) => {
+    const resetCommunityState = useResetRecoilState(communityState);
     const setAuthModalState = useSetRecoilState(authModalState);
     const logout = async () => {
         await signOut(auth);
+        resetCommunityState();
         // clear community state
-        
+
     }
     return (
         <Menu>
@@ -72,7 +76,7 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                     <MenuItem fontSize="10pt"
                             fontWeight={700}
                             _hover={{bg: 'blue.500', color: 'white'}}
-                            onClick={() => signOut(auth)}>
+                            onClick={logout}>
                         <Flex align="center">
                             <Icon as={MdOutlineLogin} fontSize={20} mr={2}/>
                             Log Out
