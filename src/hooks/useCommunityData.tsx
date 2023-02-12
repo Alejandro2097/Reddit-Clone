@@ -1,5 +1,5 @@
 import { auth, fireStore } from '@/src/Firebase/ClientApp';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDocs, increment, writeBatch } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRecoilState } from 'recoil';
@@ -49,7 +49,23 @@ const useCommunityData = () => {
 
             // updating the numberOfMembers
             try {
-                
+                const batch = writeBatch(fireStore);
+                const newSnippet: CommunitySnippet = {
+                    communityId: communityData.id,
+                    imageUrl: communityData.imageURL || "",
+                };
+                batch.set(
+                    doc(
+                        fireStore, 
+                        `users/${user?.uid}/communitySnippets`, 
+                        communityData.id
+                    ),
+                    newSnippet
+                );
+                batch.update(doc(fireStore, 'communities', communityData.id), {
+                    numberOfMembers: increment(1),
+                });
+                await batch.commit();
             } catch (error: any) {
                 console.log('joinCommunity error', error);
                 setError(error.message);
