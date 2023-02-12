@@ -9,12 +9,12 @@ type HeaderProps = {
 };
 
 const Header:React.FC<HeaderProps> = ({communityData}) => {
-    
+    const isJoined = false; // read from  our community snippets
     return (
         <Flex direction='column' width='100%' height='146px'>
             <Box height='50%' bg='blue.400'></Box>
             <Flex justify='center' bg='white' flexGrow={1}>
-                <Flex width='95%' maxWidth='860px' border="1px solid red">
+                <Flex width='95%' maxWidth='860px'>
                     {communityData.imageURL ? (
                         <Image/>
                     ) : (
@@ -39,7 +39,14 @@ const Header:React.FC<HeaderProps> = ({communityData}) => {
                                 r/{communityData.id}
                             </Text>
                         </Flex>
-                        <Button>{}</Button>
+                        <Button variant={isJoined ? 'outline' : 'solid'} 
+                                height="30px" 
+                                pr={6} 
+                                pl={6}
+                                onClick={() => {}}
+                        >
+                            {isJoined ? 'Joined' : 'Join'}
+                        </Button>
                     </Flex>
                 </Flex>
             </Flex>
