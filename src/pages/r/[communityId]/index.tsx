@@ -7,6 +7,8 @@ import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 import safeJsonStringify from 'safe-json-stringify';
 
+import PageContent from '../../../components/Layout/PageContent';
+
 type CommunityPageProps = {
     communityData: Community;
 };
@@ -20,6 +22,14 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
     return (
         <>
             <Header communityData={communityData}/>
+            <PageContent>
+                <>
+                    <div>LHS</div>
+                </>
+                <>
+                    <div>RHS</div>
+                </>
+            </PageContent>
         </>
     )
    
