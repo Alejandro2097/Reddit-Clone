@@ -17,6 +17,11 @@ type UserMenuProps = {
 
 const UserMenu:React.FC<UserMenuProps> = ({user}) => {
     const setAuthModalState = useSetRecoilState(authModalState);
+    const logout = async () => {
+        await signOut(auth);
+        // clear community state
+        
+    }
     return (
         <Menu>
             <MenuButton cursor='pointer' padding='0px 6px'
