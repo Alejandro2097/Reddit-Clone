@@ -42,7 +42,7 @@ const useCommunityData = () => {
         setLoading(false);
     }
 
-    const joinCommunity = (communityData: Community) => {
+    const joinCommunity = async (communityData: Community) => {
 
         //Batch write
             // create a new community snippet
@@ -66,10 +66,15 @@ const useCommunityData = () => {
                     numberOfMembers: increment(1),
                 });
                 await batch.commit();
+                setCommunityStateValue(prev => ({
+                    ...prev,
+                    mySnippets: [...prev.mySnippets, newSnippet],
+                }));
             } catch (error: any) {
                 console.log('joinCommunity error', error);
                 setError(error.message);
             }
+            setLoading(false);
         // update recoil state - communityState.mySnippets
     };
 
@@ -79,7 +84,12 @@ const useCommunityData = () => {
             // delete a new community snippet
 
             // deleting the numberOfMembers
-        
+        try {
+            const batch =  writeBatch(fireStore);
+            batch.delete(doc(fireStore, `users/${user?.uid}/communitySnippets`))
+        } catch (error: any) {
+            console.log('Leave community error', error.message)
+        }
         // update recoil state - communityState.mySnippets
     }
 
