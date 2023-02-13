@@ -1,4 +1,6 @@
 import { Flex, Icon } from '@chakra-ui/react';
+import { User } from 'firebase/auth';
+import { useRouter } from 'next/router';
 import { type } from 'os';
 import React, { useState } from 'react';
 import { AiFillCloseCircle } from "react-icons/ai";
@@ -6,12 +8,13 @@ import { BiPoll } from "react-icons/bi";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
 
+import { Post } from '../../atoms/postAtom';
 import ImageUpload from './PostForm/ImageUpload';
 import TextInput from './PostForm/TextInput';
 import TabItem from "./TabItem";
 
 type NewPostFormProps = {
-    
+    user: User | null | undefined
 };
 
 const formTabs:TabItems[]  = [
@@ -42,7 +45,8 @@ const formTabs:TabItems[]  = [
     icon: typeof Icon.arguments;
   };
   
-const NewPostForm:React.FC<NewPostFormProps> = () => {
+const NewPostForm:React.FC<NewPostFormProps> = ({user}) => {
+    const router = useRouter(); 
     const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
     const [loading, setLoading] = useState(false);
     const [textInputs, setTextInputs] = useState({
@@ -51,6 +55,7 @@ const NewPostForm:React.FC<NewPostFormProps> = () => {
     });
     const [selectedFile, setSelectedFile] = useState<string>();
     const handleCreatePost = async () => {
+      const { communityId} = router.query;
         // construct a new object => type post
         const newPostL: Post ={}
 
