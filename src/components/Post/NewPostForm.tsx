@@ -51,7 +51,16 @@ const NewPostForm:React.FC<NewPostFormProps> = () => {
     });
     const [selectedFile, setSelectedFile] = useState<string>();
     const handleCreatePost = async () => {
+        // construct a new object => type post
+        const newPostL: Post ={}
 
+        // sotre post in db 
+
+        // check for selectFile
+          // store in storage => getDownloadURL (return image url)
+          // update post doc by adding imageURL
+        
+        // redirect the user back to the communityPage using the router
     };
 
     const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
