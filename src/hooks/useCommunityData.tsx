@@ -19,7 +19,8 @@ const useCommunityData = () => {
         //if not => open auth modal
         if(!user){
             // open modal
-            setAuthModalState({open: true, view: 'login'})
+            setAuthModalState({open: true, view: 'login'});
+            return;
         }
         if(isJoined) {
             leaveCommunity(communityData.id);
