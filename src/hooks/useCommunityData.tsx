@@ -2,22 +2,28 @@ import { auth, fireStore } from '@/src/Firebase/ClientApp';
 import { collection, doc, getDocs, increment, writeBatch } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { CommaListExpression } from 'typescript';
 
+import { authModalState } from '../atoms/authModalAtom';
 import { Community, CommunitySnippet, communityState } from '../atoms/communityAtoms';
 
 const useCommunityData = () => {
     const [user] = useAuthState(auth);
     const [communityStateValue, setCommunityStateValue, ] = useRecoilState(communityState);
+    const setAuthModalState = useSetRecoilState(authModalState);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const onJoinOrLeaveCommunity = (communityData: Community, isJoined: boolean) => {
         // is the user sign in
         //if not => open auth modal
-
+        if(!user){
+            // open modal
+            setAuthModalState({open: true, view: 'login'})
+        }
         if(isJoined) {
             leaveCommunity(communityData.id);
+            return;
         }
         joinCommunity(communityData)
     }
@@ -62,7 +68,7 @@ const useCommunityData = () => {
                     ),
                     newSnippet
                 );
-                batch.update(doc(fireStore, 'communities', communityData.id), {
+                batch.update(doc(fireStore, "communities", communityData.id), {
                     numberOfMembers: increment(1),
                 });
                 await batch.commit();
@@ -88,22 +94,24 @@ const useCommunityData = () => {
             const batch =  writeBatch(fireStore);
             batch.delete(
                 doc(
-                    fireStore, `users/${user?.uid}/communitySnippets`
+                    fireStore, `users/${user?.uid}/communitySnippets` , communityid
                 )
             );
-            batch.update(doc(fireStore, 'communities', communityid), {
+            batch.update(doc(fireStore, "communities", communityid), {
                 numberOfMembers: increment(-1),
             }); 
             await batch.commit();
-            setCommunityStateValue(prev => ({
+            setCommunityStateValue((prev) => ({
                 ...prev,
                 mySnippets: prev.mySnippets.filter(
-                    item => item.communityId !== communityid
+                    (item) => item.communityId !== communityid
                 ),
             }));
         } catch (error: any) {
-            console.log('Leave community error', error.message)
+            console.log('Leave community error', error.message);
+            setError(error.message);
         }
+        setLoading(false);
         // update recoil state - communityState.mySnippets
     }
 
