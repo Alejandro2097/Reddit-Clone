@@ -14,7 +14,7 @@ import TextInput from './PostForm/TextInput';
 import TabItem from "./TabItem";
 
 type NewPostFormProps = {
-    user: User | null | undefined
+    user: User;
 };
 
 const formTabs:TabItems[]  = [
@@ -57,7 +57,11 @@ const NewPostForm:React.FC<NewPostFormProps> = ({user}) => {
     const handleCreatePost = async () => {
       const { communityId} = router.query;
         // construct a new object => type post
-        const newPostL: Post ={}
+        const newPostL: Post ={
+          communityId: communityId as string,
+          creatorId: user?.uid,
+          creatorDisplayName: user.email!.split('@')[0],
+        }
 
         // sotre post in db 
 
