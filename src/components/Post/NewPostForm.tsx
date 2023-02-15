@@ -1,4 +1,5 @@
-import { Flex, Icon } from '@chakra-ui/react';
+/* eslint-disable react/jsx-no-undef */
+import { Alert, AlertIcon, Flex, Icon, Text } from '@chakra-ui/react';
 import { Timestamp } from '@google-cloud/firestore';
 import { User } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp, updateDoc } from 'firebase/firestore';
@@ -158,11 +159,12 @@ const NewPostForm:React.FC<NewPostFormProps> = ({user, communityImageURL}) => {
                 />
               )}
             </Flex>
-             { error && (
-
-             ):(
-              
-             )}
+            {error && (
+                <Alert status="error">
+                  <AlertIcon />
+                  <Text mr={2}>Error creating post</Text>
+                </Alert>
+              )}
         </Flex>
     )
 }
