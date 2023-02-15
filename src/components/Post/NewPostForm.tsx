@@ -19,6 +19,7 @@ import TabItem from "./TabItem";
 
 type NewPostFormProps = {
     user: User;
+    communityImageURL?: string;
 };
 
 const formTabs:TabItems[]  = [
@@ -49,10 +50,11 @@ const formTabs:TabItems[]  = [
     icon: typeof Icon.arguments;
   };
   
-const NewPostForm:React.FC<NewPostFormProps> = ({user}) => {
+const NewPostForm:React.FC<NewPostFormProps> = ({user, communityImageURL}) => {
     const router = useRouter(); 
     const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [textInputs, setTextInputs] = useState({
       title: "",
       body: ""
@@ -61,35 +63,40 @@ const NewPostForm:React.FC<NewPostFormProps> = ({user}) => {
     const handleCreatePost = async () => {
       const { communityId} = router.query;
         // construct a new object => type post
-        const newPost: Post ={
+       
+        const newPost: Post = {
           communityId: communityId as string,
-          creatorId: user?.uid,
-          creatorDisplayName: user.email!.split('@')[0],
-          title: textInputs.body,
+          communityImageURL: communityImageURL || "",
+          creatorId: user.uid,
+          creatorDisplayName: user.email!.split("@")[0],
+          title: textInputs.title,
           body: textInputs.body,
           numberOfComments: 0,
           voteStatus: 0,
-          createdAt: serverTimestamp() as Timestamp
-        }
-
+          createdAt: serverTimestamp() as Timestamp,
+        };
+        setLoading(true);
         // sotre post in db 
         try {
-          const postDocRef = await addDoc(collection(fireStore, 'post'), newPost)
+          const postDocRef = await addDoc(collection(fireStore, "posts"), newPost);
           // check for selectFile
           // store in storage => getDownloadURL (return image url)
       
         
-          if(selectedFile) {
+          if (selectedFile) {
+            // store in storage => getDownloadURL (return imageURL)
             const imageRef = ref(storage, `posts/${postDocRef.id}/image`);
-            await uploadString(imageRef, selectedFile, 'data_url');
+            await uploadString(imageRef, selectedFile, "data_url");
             const downloadURL = await getDownloadURL(imageRef);
-                // update post doc by adding imageURL
+    
+            // update post doc by adding imageURL
             await updateDoc(postDocRef, {
               imageURL: downloadURL,
             });
           }
         } catch (error: any) {
-          console.log('Handle create post error', error.message)
+          console.log('Handle create post error', error.message);
+          setError(true);
         }
         setLoading(false);
         // redirect the user back to the communityPage using the router
@@ -151,7 +158,11 @@ const NewPostForm:React.FC<NewPostFormProps> = ({user}) => {
                 />
               )}
             </Flex>
+             { error && (
 
+             ):(
+              
+             )}
         </Flex>
     )
 }
