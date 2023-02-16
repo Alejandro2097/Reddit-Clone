@@ -17,12 +17,13 @@ import {
   import { HiOutlineDotsHorizontal } from "react-icons/hi";
   import { RiCakeLine } from "react-icons/ri";
   import { FaReddit } from "react-icons/fa";
-  import { Community, communityState } from "../../atoms/communitiesAtom";
-  import { auth, firestore, storage } from "../../firebase/clientApp";
   import useSelectFile from "../../hooks/useSelectFile";
   import { getDownloadURL, ref, uploadString } from "firebase/storage";
   import { doc, updateDoc } from "firebase/firestore";
   import { useSetRecoilState } from "recoil";
+import { fireStore, storage, auth } from '@/src/Firebase/ClientApp';
+import { communityState } from "@/src/atoms/communityAtoms";
+import { Community } from '../../atoms/communityAtoms';
   
   type AboutProps = {
     communityData: Community;
@@ -42,11 +43,11 @@ import {
         const imageRef = ref(storage, `communities/${communityData.id}/image`);
         await uploadString(imageRef, selectedFile, "data_url");
         const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(firestore, "communities", communityData.id), {
+        await updateDoc(doc(fireStore, "communities", communityData.id), {
           imageURL: downloadURL,
         });
   
-        setCommunityStateValue((prev) => ({
+        setCommunityStateValue((prev: any) => ({
           ...prev,
           currentCommunity: {
             ...prev.currentCommunity,
