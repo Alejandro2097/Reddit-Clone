@@ -11,6 +11,8 @@ import safeJsonStringify from 'safe-json-stringify';
 
 import PageContent from '../../../components/Layout/PageContent';
 import { useSetRecoilState } from 'recoil';
+import CreatePostLink from '../../../components/community/CreatePostLinks';
+import About from '@/src/components/community/About';
 
 type CommunityPageProps = {
     communityData: Community;
@@ -34,18 +36,18 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData}) => {
     }
     return (
         <>
-            <Header communityData={communityData}/>
-            <PageContent>
-                <>
-                    <CreatePostLinks/>
-                    <Post communityData={communityData}/>
-                </>
-                <>
-                    <div>RHS</div>
-                </>
-            </PageContent>
+          <Header communityData={communityData} />
+          <PageContent>
+            <>
+              <CreatePostLink />
+              <Post communityData={communityData} />
+            </>
+            <>
+              <About communityData={communityData} />
+            </>
+          </PageContent>
         </>
-    )
+      );
    
 }
 

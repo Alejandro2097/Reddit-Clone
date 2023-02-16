@@ -1,8 +1,9 @@
+import About from '@/src/components/community/About';
 import PageContent from '@/src/components/Layout/PageContent';
 import NewPostForm from '@/src/components/Post/NewPostForm';
 import { auth } from '@/src/Firebase/ClientApp';
 import useCommunityData from '@/src/hooks/useCommunityData';
-import { Box, Text, About } from '@chakra-ui/react';
+import { Box, Text, } from '@chakra-ui/react';
 import React from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 
