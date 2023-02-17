@@ -1,10 +1,20 @@
-import { NextPage } from "next";
-import usePosts from '@/src/hooks/usePost';
-import useCommunityData from '../hooks/useCommunityData';
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, fireStore } from '@/src/Firebase/ClientApp';
-import useState from 'react';
-import { collection, getDocs, limit, query, where } from "firebase/firestore";
+import usePosts from '@/src/hooks/usePost';
+import { Stack } from '@chakra-ui/react';
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
+import { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { Post, PostVote } from '../atoms/postAtom';
+import CreatePostLink from '../components/community/CreatePostLinks';
+import PersonalHome from '../components/community/PersonalHome';
+import Premium from '../components/community/Premium';
+import Recommendations from '../components/community/Recommendations';
+import PageContent from '../components/Layout/PageContent';
+import PostLoader from '../components/Post/PosLoader';
+import PostItem from '../components/Post/PostItem';
+import useCommunityData from '../hooks/useCommunityData';
 
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(auth);
@@ -53,7 +63,7 @@ const Home: NextPage = () => {
     setLoading(true);
     try {
       const postQuery = query(
-        collection(firestore, "posts"),
+        collection(fireStore, "posts"),
         orderBy("voteStatus", "desc"),
         limit(10)
       );
@@ -76,7 +86,7 @@ const Home: NextPage = () => {
     try {
       const postIds = postStateValue.posts.map((post) => post.id);
       const postVotesQuery = query(
-        collection(firestore, `users/${user?.uid}/postVotes`),
+        collection(fireStore, `users/${user?.uid}/postVotes`),
         where("postId", "in", postIds)
       );
       const postVoteDocs = await getDocs(postVotesQuery);
