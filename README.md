@@ -1,3 +1,10 @@
+![image of the preview](/public/images/Capture.PNG)
+
+Today, I will be demonstrating a project that I developed while following one of the courses on freeCodeCamp. It is an incredible platform that offers ample opportunities to learn about software engineering. Through this project, I gained significant knowledge about various technologies such as React, Chakra UI, and Firebase.
+
+To  run this project in your machine please follow the Next Js instructions: 
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
